@@ -3,7 +3,6 @@ package com.mock1.user.domain;
 import com.mock1.user.dto.UserRequestDto;
 import com.mock1.user.dto.UserResponseDto;
 import com.mock1.user.infrastructure.UserRepository;
-import com.mock1.user.domain.Role;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

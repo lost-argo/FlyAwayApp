@@ -2,8 +2,7 @@ package com.mock1.auth.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.management.relation.Role;
+import com.mock1.user.domain.Role;
 
 @Getter
 @Setter
