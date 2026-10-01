@@ -15,7 +15,6 @@ import javax.management.relation.Role;
 import java.util.Collection;
 import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
@@ -30,11 +29,6 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false, length = 100)
     String email;
     @Column(unique = true, nullable = false)
-    @Size(min = 8, max = 100)
-    @Pattern(
-            regexp = "^(?=.*[A-Z])(?=.*\\d).+$",
-            message = "Password must contain at least one upper case letter and one number"
-    )
     String password;
     @Enumerated(EnumType.STRING)
     private Role role;

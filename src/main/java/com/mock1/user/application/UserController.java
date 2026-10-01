@@ -1,9 +1,9 @@
 package com.mock1.user.application;
 
 import com.mock1.user.domain.UserService;
-import com.mock1.user.domain.User;
+import com.mock1.user.dto.UserRequestDto;
+import com.mock1.user.dto.UserResponseDto;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +20,13 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserResponseDto>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @PostMapping
-    public ResponseEntity<Void> createUser(@Valid @RequestBody User newUser) {
-        userService.createUser(newUser);
+    public ResponseEntity<Void> createUser(@Valid @RequestBody UserRequestDto dto) {
+        userService.createUser(dto);
         return ResponseEntity.status(HttpStatusCode.valueOf(201)).build();
     }
 }

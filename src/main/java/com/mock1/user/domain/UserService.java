@@ -1,7 +1,9 @@
 package com.mock1.user.domain;
 
+import com.mock1.user.dto.UserRequestDto;
+import com.mock1.user.dto.UserResponseDto;
 import com.mock1.user.infrastructure.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mock1.user.domain.Role;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,17 +22,23 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponseDto> getAllUsers() {
+        return userRepository.findAll().stream().map(
+                u -> new  UserResponseDto(u.getUserId(),u.getFirstName(),u.getLastName(),u.getEmail())).toList();
     }
 
     public User getUsersById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User with id " + id + " not found"));
     }
 
-    public void createUser(User newUser) {
-        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        userRepository.save(newUser);
+    public void createUser(UserRequestDto dto) {
+        User u =  new User();
+        u.setFirstName(dto.getFirstName());
+        u.setLastName(dto.getLastName());
+        u.setEmail(dto.getEmail());
+        u.setPassword(passwordEncoder.encode(dto.getPassword()));
+        u.setRole(Role.USER);
+        userRepository.save(u);
     }
 
     @Override
